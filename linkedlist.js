@@ -7,10 +7,10 @@ class Linkedlist{
         this.size= 0;
     }
 
-    insert(value){
+    insert(value){// as add & append
         const newNode = new Node(value);
-        console.log(this.head?true:false);
-        console.log('value',value);
+        // console.log(this.head?true:false);
+        // console.log('value',value);
         if(this.head == null ) // (!this.head)
         {
           this.head = newNode;
@@ -25,8 +25,24 @@ class Linkedlist{
 
         }
         this.size++;
-        console.log('size',this.size);
+        // console.log('size',this.size);
     }
+
+    append(value) {
+        let tail = this.head;
+        const newNOde = new Node(value)
+        console.log(tail);
+        while (tail) { 
+          if (tail.next === null) {
+            tail.next = newNOde;
+            this.size++;
+            return;
+          }
+          tail = tail.next;
+        }
+        
+        return 'there is no head';
+      }
   
     toString(){// to print all linked list
      
@@ -53,6 +69,7 @@ class Linkedlist{
     include(value){
        let cur = this.head;
        while(cur){
+        //    console.log('------',cur.data);
            if(cur.data==value)
            return true
            else
@@ -63,13 +80,61 @@ class Linkedlist{
        return false
 
     }
+
+    insertAfter(value,newvalue){
+        console.log('value', value , 'newvalue', newvalue);
+        const newNode = new Node(newvalue);
+        let cur = this.head, prev;
+        while(cur.next)
+        {
+            if(cur.data==value)
+            {
+                prev=cur;
+                cur=cur.next;
+                prev.next = newNode;
+                newNode.next=cur;
+                this.size++;
+            }
+            cur=cur.next;
+        }
+    }
+    insertBefor(value,newvalue){
+        const newNode = new Node(newvalue);
+        let cur = this.head, prev;
+        if(cur.data == value)
+        {
+            this.head = newNode;
+            newNode.next=cur;
+        }
+        else {
+            while(cur.next){
+                prev=cur;
+                cur=cur.next;
+                if(cur.data == value)
+                {
+                    prev.next=newNode;
+                    newNode.next=cur;
+                    this.size++;
+
+                }
+            }
+        }
+    }
+
+
+    
 }
 const newLinked = new Linkedlist();
-newLinked.insert('a');
 newLinked.insert('b');
 newLinked.insert('c');
+newLinked.insert('a');
 newLinked.insert('d');
+newLinked.insert('a');
+newLinked.append('f');
+// console.log(newLinked.append('f'));
 
-
+newLinked.insert('h');
+console.log(newLinked.include('f'));
+newLinked.insertAfter('b','s');
+newLinked.insertBefor('b','n');
 console.log(newLinked.toString());
-console.log(newLinked.include('d'));
