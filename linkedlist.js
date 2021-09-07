@@ -7,11 +7,9 @@ class Linkedlist{
         this.size= 0;
     }
 
-    insert(value){// as add & append
+    insert(value){
         const newNode = new Node(value);
-        // console.log(this.head?true:false);
-        // console.log('value',value);
-        if(this.head == null ) // (!this.head)
+        if(!this.head) 
         {
           this.head = newNode;
         }
@@ -19,57 +17,61 @@ class Linkedlist{
             let cur = this.head;
             while(cur.next)
             {
-                cur=cur.next;//stay looping once last next be null
+                cur=cur.next;
             }
             cur.next=newNode;   
 
         }
         this.size++;
-        // console.log('size',this.size);
     }
 
     append(value) {
-        let tail = this.head;
-        const newNOde = new Node(value)
-        console.log(tail);
-        while (tail) { 
-          if (tail.next === null) {
-            tail.next = newNOde;
-            this.size++;
-            return;
-          }
-          tail = tail.next;
-        }
+
+      let cur = this.head;
+      let newNode = new Node(value);
+      if(cur)
+      {while(cur.next)
+      {
+          cur=cur.next;
+      }
+      cur.next = newNode;
+      this.size++;}
+
+
+        // let tail = this.head;
+        // const newNOde = new Node(value)
+        // console.log(tail);
+        // while (tail) { 
+        //   if (tail.next === null) {
+        //     tail.next = newNOde;
+        //     this.size++;
+        //     return;
+        //   }
+        //   tail = tail.next;
+        // }
         
-        return 'there is no head';
+        // return 'there is no head';
       }
   
     toString(){// to print all linked list
-     
         let str = [];
         let cur = this.head;
-        str.push('{');
-        str.push(cur.data)
-        str.push('}')
-        str.push('->');
-        while(cur.next)
+     
+        while(cur)
         { 
-        cur = cur.next
-        str.push('{');
-        str.push(cur.data)
-        str.push('}')
-        str.push('->');
+            str.push('{');
+            str.push(cur.data)
+            str.push('}')
+            str.push('->');
+            cur = cur.next
         }
         str.push('Null');
         let newarr = str.join('');
-
-        return newarr;
-        
+        return newarr; 
     }
     include(value){
        let cur = this.head;
        while(cur){
-        //    console.log('------',cur.data);
            if(cur.data==value)
            return true
            else
@@ -85,18 +87,23 @@ class Linkedlist{
         console.log('value', value , 'newvalue', newvalue);
         const newNode = new Node(newvalue);
         let cur = this.head, prev;
-        while(cur.next)
-        {
-            if(cur.data==value)
-            {
-                prev=cur;
-                cur=cur.next;
-                prev.next = newNode;
-                newNode.next=cur;
-                this.size++;
-            }
-            cur=cur.next;
+        if(!cur.next){
+            cur.next =newNode;
         }
+        else
+        {
+            while(cur.next)
+            {
+                if(cur.data==value)
+                {
+                    prev=cur;
+                    cur=cur.next;
+                    prev.next = newNode;
+                    newNode.next=cur;
+                    
+                }
+                cur=cur.next;     } }
+        this.size++;
     }
     insertBefor(value,newvalue){
         const newNode = new Node(newvalue);
@@ -120,21 +127,29 @@ class Linkedlist{
             }
         }
     }
-
+    printList() { // like tostring
+        let cur = this.head, str = ""
+        while (cur) {
+            str = str + cur.data + " ";
+            cur = cur.next
+        }
+        return str
+    }
 
     
 }
 const newLinked = new Linkedlist();
 newLinked.insert('b');
+newLinked.insertAfter('b','s');
+newLinked.append('f');
 newLinked.insert('c');
 newLinked.insert('a');
 newLinked.insert('d');
 newLinked.insert('a');
-newLinked.append('f');
-// console.log(newLinked.append('f'));
-
 newLinked.insert('h');
+
 console.log(newLinked.include('f'));
 newLinked.insertAfter('b','s');
 newLinked.insertBefor('b','n');
 console.log(newLinked.toString());
+console.log(newLinked.printList());
