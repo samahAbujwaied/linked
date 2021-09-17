@@ -217,6 +217,9 @@ class Linkedlist {
     sizeList() {
         return this.size
     }
+    isEmpty() {
+        return this.size == 0;
+    }
 
 }
 
