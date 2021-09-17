@@ -68,7 +68,7 @@ class Linkedlist {
     insertAfter(value, newvalue) {
         const newNode = new Node(newvalue);
         let cur = this.head, prev;
-        if (!cur.next) {
+        if (!cur) {
             cur.next = newNode;
         }
         else {
@@ -80,7 +80,11 @@ class Linkedlist {
                     newNode.next = cur;
 
                 }
-                cur = cur.next;
+                if(cur)
+                {
+                    cur = cur.next;
+                }
+                
             }
         }
         this.size++;
@@ -252,24 +256,14 @@ const newLinked1 = new Linkedlist();
 newLinked.insert(4);
 newLinked.append(5);
 newLinked.insert(6);
-newLinked.insert(27);
-newLinked.insertAfter(1, 10);
+newLinked.append(7);
+newLinked.insert(9);
+newLinked.addelementAt2('noor', 5)
+newLinked.insertAfter(6,10);
+console.log(newLinked.toString());
 newLinked1.insert(4);
 newLinked1.insert(5);
 newLinked1.insert(26);
 newLinked1.insert(8)
-console.log(newLinked.kthFromEnd(5));
-newLinked.addelementAt2('noor', 5)
 
 console.log('ziplinkedlist', zipList(newLinked, newLinked1));
-
-
-let new1 = new Linkedlist();
-let new2  = new Linkedlist();
-new1.insert(1);
-new1.insert(5);
-new1.insert(4);
-new2.insert(10);
-new2.insert(3);
-new2.insert(6);
-
