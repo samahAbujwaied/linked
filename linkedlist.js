@@ -1,7 +1,6 @@
 'use strict';
 const Node = require('./node')
 class Linkedlist {
-
     constructor() {
         this.head = null;
         this.size = 0;
@@ -35,20 +34,6 @@ class Linkedlist {
             this.size++;
         }
 
-
-        // let tail = this.head;
-        // const newNOde = new Node(value)
-        // console.log(tail);
-        // while (tail) { 
-        //   if (tail.next === null) {
-        //     tail.next = newNOde;
-        //     this.size++;
-        //     return;
-        //   }
-        //   tail = tail.next;
-        // }
-
-        // return 'there is no head';
     }
 
     toString() {// to print all linked list
@@ -81,14 +66,13 @@ class Linkedlist {
     }
 
     insertAfter(value, newvalue) {
-        console.log('value', value, 'newvalue', newvalue);
         const newNode = new Node(newvalue);
         let cur = this.head, prev;
         if (!cur.next) {
             cur.next = newNode;
         }
         else {
-            while (cur.next) {
+            while (cur) {
                 if (cur.data == value) {
                     prev = cur;
                     cur = cur.next;
@@ -152,7 +136,7 @@ class Linkedlist {
             if (count == index) {
                 this.head = newNode;
                 newNode.next = cur;
-                
+
             }
             else {
                 while (cur.next) {
@@ -192,7 +176,7 @@ class Linkedlist {
         }
     }
 
-    printList() { // like tostring
+    printList() {
         let cur = this.head, str = ""
         while (cur) {
             str = str + cur.data + " ";
@@ -201,25 +185,88 @@ class Linkedlist {
         return str
     }
 
+    kthFromEnd(k) {
+        let value = this.size - k;
+        let count = 0;
+        let cur = this.head;
+        if (k < 1 || k > this.size) { return 'Exception' }
+        else {
+            while (count < value) {
+                count++;
+                cur = cur.next;
+            }
+            return (cur.data)
+        }
+    }
 
+
+    reverse() {
+        let prev = null, current = this.head
+        let next = current ? current.next : null
+        while (current) {
+            this.head = current;
+            next = current.next;
+            current.next = prev;
+            prev = current
+            current = next;
+
+        }
+        return this.head
+
+    }
+    sizeList() {
+        return this.size
+    }
 
 }
-const newLinked = new Linkedlist();
-newLinked.insert('b');
-// newLinked.insertAfter('b','s');
-newLinked.append('f');
-newLinked.insert('c');
-newLinked.insert('a');
-newLinked.insert('d');
-// newLinked.insert('a');
-// newLinked.insert('h');
-// newLinked.insertMiddle('10');
-// newLinked.addelementAt('noor', 5)
-newLinked.addelementAt2('noor',5)
-console.log(newLinked.toString());
-console.log(newLinked.size);
-// console.log(newLinked.include('f'));
-// newLinked.insertAfter('b','s');
-// newLinked.insertBefor('b','n');
 
-// console.log(newLinked.printList());
+const zipList = (linkedlist1, linkedlist2) => {
+
+    if (linkedlist1.length === 0 || linkedlist2.length === 0) {
+        return 'Exception';
+    }
+    let cur1 = linkedlist1.head;
+    let cur2 = linkedlist2.head;
+
+    let linkedlist1Length = linkedlist1.sizeList();
+    let linkedlist2Length = linkedlist2.sizeList();
+    while (cur1 && cur2.next) {
+        linkedlist1.insertAfter(cur1.data, cur2.data);
+        cur1 = cur1.next.next;
+        cur2 = cur2.next;
+    }
+    if (linkedlist1Length === linkedlist2Length || (linkedlist1Length < linkedlist2Length)) {
+        linkedlist1.insert(cur2.data);
+    } else if (linkedlist1Length > linkedlist2Length) {
+
+        linkedlist1.insertAfter(cur1.data, cur2.data);
+    }
+    return linkedlist1.toString();
+}
+
+const newLinked = new Linkedlist();
+const newLinked1 = new Linkedlist();
+newLinked.insert(4);
+newLinked.append(5);
+newLinked.insert(6);
+newLinked.insert(27);
+newLinked.insertAfter(1, 10);
+newLinked1.insert(4);
+newLinked1.insert(5);
+newLinked1.insert(26);
+newLinked1.insert(8)
+console.log(newLinked.kthFromEnd(5));
+newLinked.addelementAt2('noor', 5)
+
+console.log('ziplinkedlist', zipList(newLinked, newLinked1));
+
+
+let new1 = new Linkedlist();
+let new2  = new Linkedlist();
+new1.insert(1);
+new1.insert(5);
+new1.insert(4);
+new2.insert(10);
+new2.insert(3);
+new2.insert(6);
+

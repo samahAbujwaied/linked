@@ -7,29 +7,20 @@ class LinkedList {
         this.size = 0;
     }
 
-
-    addelementAt(element, index) {
-        if (index < 0 || index > this.size)
-            return 'sorry enter valid index';
-        else {
-            let newNode = new Node(element);
-            if (index == 0) {
-                newNode.next = this.head;
-                this.head = newNode;
-            }
-            else {
-                let prev, cur = this.head, count = 0;
-                while (count < index) {
-                    count++;
-                    prev = cur;
-                    cur = cur.next;
-
-                }
-                prev.next = newNode;
-                newNode.next = cur;
-            }
-            this.size++
+    addelement(value) {
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
         }
+        else {
+            let cur = this.head;
+            while (cur.next) {
+                cur = cur.next;
+            }
+            cur.next = newNode;
+
+        }
+        this.size++;
     }
     removeFrom(index) {
         if (index < 0 || index > this.size)
@@ -93,14 +84,7 @@ class LinkedList {
         return this.size
     }
 
-    printList() { // like tostring
-        let cur = this.head, str = ""
-        while (cur) {
-            str = str + cur.element + " ";
-            cur = cur.next
-        }
-        return str
-    }
+
 
     kthFromEnd(k) {
         let value = this.size - k;
@@ -120,8 +104,7 @@ class LinkedList {
     }
    
     reverse(){
-        let prev = null
-        let current = this.head
+        let prev = null,current = this.head
         let next = current ? current.next : null
         while(current){
             this.head=current;
@@ -134,55 +117,61 @@ class LinkedList {
         return this.head
        
     }
-    palindrome(linkedlist){
-        let p , q ,secondLL;
-        p=q=this.head;
-        let size = linkedlist.sizeList()
-        console.log(size);
-        size = size/2;
-        console.log(size);
-        while(p){
-            p=p.next.next;
-            console.log('[[[[[[[',p);
-            if(!p.next)
-            {
-                secondLL=q.next.next; 
-                console.log('secooooo',secondLL);
-                 break;
-               
-            }
-            if(!p){
-                secondLL=q.next;
-                console.log('secooooo44444',secondLL);
-                break;
-            }
+    reverse2(){
+       let cur = this.head , array = [];
+        while(cur)
+        {
+            array.push(cur.data);
+            cur=cur.next;
         }
-        q.next=null
+        return array.reverse();
+    }
+   Palindrome (head) {
+       console.log('head',head);
+        let valuesFound = [];
+        while (head) {
+            valuesFound.push(head.data);
+            head = head.next;
+        }
+        let left = 0;
+        let right = valuesFound.length - 1;
+        while (left <= right) {
+            if (valuesFound[left] !== valuesFound[right]) {
+                return false;
+            }
+            left++, right--;
+        } 
+        return true;
+    };
+    toString() {// to print all linked list
+        let str = [];
+        let cur = this.head;
 
+        while (cur) {
+            str.push('{');
+            str.push(cur.data)
+            str.push('}')
+            str.push('->');
+            cur = cur.next
+        }
+        str.push('Null');
+        let newarr = str.join('');
+        return newarr;
     }
 }
+
 const zipList =  (linkedlist1, linkedlist2)=> {
-    // [1,2,3,4,5]
-    // [6,7,8,9,10]
-    // [1,2,3,4,5,6,7,8,9,10]
-    //1,2,2,7,3,8,4,
-    // linked list  ==> linear
-    // tree & graph ==>non-linear
+  
     if (linkedlist1.length === 0 || linkedlist2.length === 0) {
         return 'Exception';
     }
-    console.log('onnnn');
     let cur1 = linkedlist1.head;
     let cur2 = linkedlist2.head;
 
     let linkedlist1Length = linkedlist1.sizeList();
     let linkedlist2Length = linkedlist2.sizeList();
-    console.log('length1',linkedlist1Length);
-    console.log('length2',linkedlist2Length );
     while (cur1 && cur2.next) {
-        console.log('inn');
         linkedlist1.insertAfter(cur1.element, cur2.element);
-
         cur1 = cur1.next.next;
         cur2 = cur2.next;
     }
@@ -194,43 +183,50 @@ const zipList =  (linkedlist1, linkedlist2)=> {
     return linkedlist1;
 }
 
-const add = new LinkedList();
-add.addelement(1);
-add.addelement(2);
-add.addelement(3);
-add.addelement(4);
-add.addelement(5);
-add.addelement(6);
-add.addelement(7);
-add.addelement(8);
-add.addelement(9);
-add.addelement(10);
-add.addelement(11);
-const add2 = new LinkedList();
-add2.addelement(12);
-add2.addelement(13);
-add2.addelement(14);
-add2.addelement(15);
-add2.addelement(16);
-add2.addelement(17);
-add2.addelement(18);
-add2.addelement(19);
-const list3 = new LinkedList();
-list3.addelement('a');
-list3.addelement('b');
-list3.addelement('c')
-list3.reverse()
-console.log('reeee',list3.printList());
+// const add = new LinkedList();
+// add.addelement(1);
+// add.addelement(2);
+// add.addelement(3);
+// add.addelement(4);
+// add.addelement(5);
+// add.addelement(6);
+// add.addelement(7);
+// add.addelement(8);
+// add.addelement(9);
+// add.addelement(10);
+// add.addelement(11);
+// const add2 = new LinkedList();
+// add2.addelement(12);
+// add2.addelement(13);
+// add2.addelement(14);
+// add2.addelement(15);
+// add2.addelement(16);
+// add2.addelement(17);
+// add2.addelement(18);
+// add2.addelement(19);
+// const list3 = new LinkedList();
+// list3.addelement('a');
+// list3.addelement('b');
+// list3.addelement('c')
+// list3.reverse()
+// console.log('reeee',list3.printList());
 
-console.log(zipList(add,add2).printList());
+// console.log(zipList(add,add2).printList());
 const palindrom =  new LinkedList();
 // [t]->[a]->[c]->[o]->[c]->[a]->[t]
-palindrom.addelement('t');
-palindrom.addelement('a');
-palindrom.addelement('o');
-palindrom.addelement('a');
-palindrom.addelement('t');
-console.log(palindrom.palindrome(palindrom));
+palindrom.addelement('2');
+palindrom.addelement('3');
+palindrom.addelement('4');
+palindrom.addelement('5');
+// palindrom.addelemen('m');
+palindrom.addelement('7');
+palindrom.addelement('8');
+palindrom.addelement('9');
+// console.log('reverse',palindrom.reverse());
+// console.log(palindrom);
+console.log(palindrom.reverse2());
+// console.log('string , ',palindrom.toString());
+console.log(palindrom.Palindrome(palindrom.head));
 // console.log('===>', add);
 // console.log('===>', add.head.next.next);
 // add.removeFrom(2);
