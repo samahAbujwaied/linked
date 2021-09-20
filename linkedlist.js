@@ -5,7 +5,6 @@ class Linkedlist {
         this.head = null;
         this.size = 0;
     }
-
     insert(value) {
         const newNode = new Node(value);
         if (!this.head) {
@@ -21,9 +20,7 @@ class Linkedlist {
         }
         this.size++;
     }
-
     append(value) {
-
         let cur = this.head;
         let newNode = new Node(value);
         if (cur) {
@@ -33,9 +30,7 @@ class Linkedlist {
             cur.next = newNode;
             this.size++;
         }
-
     }
-
     toString() {// to print all linked list
         let str = [];
         let cur = this.head;
@@ -64,28 +59,18 @@ class Linkedlist {
         return false
 
     }
-
     insertAfter(value, newvalue) {
-        const newNode = new Node(newvalue);
+        let newNode = new Node(newvalue);
         let cur = this.head, prev;
-        if (!cur) {
-            cur.next = newNode;
-        }
-        else {
-            while (cur) {
-                if (cur.data == value) {
-                    prev = cur;
-                    cur = cur.next;
-                    prev.next = newNode;
-                    newNode.next = cur;
-
-                }
-                if(cur)
-                {
-                    cur = cur.next;
-                }
-                
+        while (cur) {
+            if (cur.data == value) {
+                prev = cur;
+                cur = cur.next;
+                prev.next = newNode;
+                newNode.next = cur
             }
+            if (cur)
+                cur = cur.next;
         }
         this.size++;
     }
@@ -110,7 +95,6 @@ class Linkedlist {
         }
         this.size++;
     }
-
     insertMiddle(value) {
         let newNode = new Node(value);
         let cur = this.head, prev;
@@ -203,7 +187,6 @@ class Linkedlist {
         }
     }
 
-
     reverse() {
         let prev = null, current = this.head
         let next = current ? current.next : null
@@ -216,7 +199,6 @@ class Linkedlist {
 
         }
         return this.head
-
     }
     sizeList() {
         return this.size
@@ -224,46 +206,37 @@ class Linkedlist {
     isEmpty() {
         return this.size == 0;
     }
-
 }
 
-const zipList = (linkedlist1, linkedlist2) => {
-
-    if (linkedlist1.length === 0 || linkedlist2.length === 0) {
+const zipList = (list1, list2) => {
+    if (!list1.sizeList() || !list2.sizeList()) {
         return 'Exception';
     }
-    let cur1 = linkedlist1.head;
-    let cur2 = linkedlist2.head;
-
-    let linkedlist1Length = linkedlist1.sizeList();
-    let linkedlist2Length = linkedlist2.sizeList();
-    while (cur1 && cur2.next) {
-        linkedlist1.insertAfter(cur1.data, cur2.data);
-        cur1 = cur1.next.next;
-        cur2 = cur2.next;
+    let cur1 = list1.head;
+    let cur2 = list2.head;
+    const list3 = new Linkedlist();
+    while (cur1 || cur2) {
+        if (cur1) {
+            list3.insert(cur1.data)
+            if (cur2)
+                list3.insertAfter(cur1.data, cur2.data);
+            cur1 = cur1.next;
+            if (cur2)
+                cur2 = cur2.next
+        }
+        else
+            if (cur2) {
+                list3.insert(cur2.data);
+                cur2 = cur2.next;
+            }
     }
-    if (linkedlist1Length === linkedlist2Length || (linkedlist1Length < linkedlist2Length)) {
-        linkedlist1.insert(cur2.data);
-    } else if (linkedlist1Length > linkedlist2Length) {
-
-        linkedlist1.insertAfter(cur1.data, cur2.data);
-    }
-    return linkedlist1.toString();
+    return list3.toString();
 }
 
 const newLinked = new Linkedlist();
 const newLinked1 = new Linkedlist();
+newLinked.insert(1);
+newLinked.insert(3);
 newLinked.insert(4);
-newLinked.append(5);
-newLinked.insert(6);
-newLinked.append(7);
-newLinked.insert(9);
-newLinked.addelementAt2('noor', 5)
-newLinked.insertAfter(6,10);
-console.log(newLinked.toString());
-newLinked1.insert(4);
-newLinked1.insert(5);
-newLinked1.insert(26);
-newLinked1.insert(8)
-
+newLinked1.insert(2);
 console.log('ziplinkedlist', zipList(newLinked, newLinked1));
