@@ -231,9 +231,6 @@ class Linkedlist {
         while (cur) {
             prev = cur;
             cur = cur.next
-            if(cur)
-            if (prev.data == cur.data) {
-                cur = cur.next;
                     while(prev.data == cur.data)
                     {
                         cur=cur.next;
@@ -241,9 +238,7 @@ class Linkedlist {
                         break;
                     }
                 prev.next=cur;
-            }
         }
-
         return this.head;
     }
 
@@ -305,7 +300,17 @@ const zipList = (list1, list2) => {
 const newLinked  = new Linkedlist();
 const newLinked1 = new Linkedlist();
 newLinked.insert(1);
-
+newLinked.insert(1);
+newLinked.insert(1);
+newLinked.insert(1);
+newLinked.insert(2);
+newLinked.insert(3);
+newLinked.insert(3);
+newLinked.insert(3);
+newLinked.insert(7);
+newLinked.insert(7);
+newLinked.insert(7);
+newLinked.insert(7);
 newLinked.insert(7);
 // newLinked.insert(7);
 console.log('duplicate-------->', newLinked.removeDuplicatNode());
