@@ -206,7 +206,76 @@ class Linkedlist {
     isEmpty() {
         return this.size == 0;
     }
+    isPalindrome() {
+        let valuesFound = [];
+        let cur = this.head
+        // console.log('cur ---',cur);
+        while (cur) {
+            valuesFound.push(cur.data);
+            cur = cur.next;
+        }
+        let left = 0;
+        let right = valuesFound.length - 1;
+        while (left <= right) {
+            if (valuesFound[left] !== valuesFound[right]) {
+                return false;
+            }
+            left++, right--;
+        }
+
+        return true;
+    };
+
+    removeDuplicatNode() {
+        let cur = this.head, prev;
+        while (cur) {
+            prev = cur;
+            cur = cur.next
+            if(cur)
+            if (prev.data == cur.data) {
+                cur = cur.next;
+                    while(prev.data == cur.data)
+                    {
+                        cur=cur.next;
+                        if(!cur)
+                        break;
+                    }
+                prev.next=cur;
+            }
+        }
+
+        return this.head;
+    }
+
+
+
+
 }
+let removeElements = function (head, val) {
+
+    let cur = head.head;
+    let prev = cur;
+
+    while (cur) {
+        if (cur.data == val) {
+
+            console.log('val----', cur.data);
+            cur = cur.next;
+            prev.next = cur;
+
+
+        }
+        else {
+            prev = cur;
+            cur = cur.next;
+        }
+
+
+    }
+
+    return head;
+};
+
 
 const zipList = (list1, list2) => {
     if (!list1.sizeList() || !list2.sizeList()) {
@@ -231,12 +300,22 @@ const zipList = (list1, list2) => {
             }
     }
     return list3.toString();
-}
+} 
 
-const newLinked = new Linkedlist();
+const newLinked  = new Linkedlist();
 const newLinked1 = new Linkedlist();
 newLinked.insert(1);
-newLinked.insert(3);
-newLinked.insert(4);
-newLinked1.insert(2);
-console.log('ziplinkedlist', zipList(newLinked, newLinked1));
+
+newLinked.insert(7);
+// newLinked.insert(7);
+console.log('duplicate-------->', newLinked.removeDuplicatNode());
+console.log('duuuuuuuuuuuuuuuuuuuuuuuuu', newLinked.toString());
+
+// newLinked1.insert(7);
+// newLinked1.insert(7);
+// newLinked1.insert(7);
+// newLinked1.insert(7);
+
+// console.log(newLinked1.isPalindrome());
+// console.log('ziplinkedlist', zipList(newLinked, newLinked1));
+// console.log('removeElements',removeElements(newLinked1,7));
