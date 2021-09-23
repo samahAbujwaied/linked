@@ -326,23 +326,49 @@ let list1 = new LinkedList();
 let list2 = new LinkedList();
 
 console.log('empty--->', list1.isEmpty());
-list1.insertNode(3);
 list1.insertNode(10);
-list1.insertNode(10);
-list1.insertNode(10);
-list1.insertNode(17);
-list1.insertNode(18);
-list1.insertNode(8);
-list1.insertNode(1);
-list1.insertNode(50);
-list1.insertNode(25);
-list1.insertNode(25);
-list1.insertNode(25);
-list1.insertNode(25);
+list1.insertNode(20);
+list1.insertNode(30);
+list1.insertNode(40);
+// list1.insertNode(17);
+// list1.insertNode(18);
+// list1.insertNode(8);
+// list1.insertNode(1);
+// list1.insertNode(50);
+// list1.insertNode(25);
+// list1.insertNode(25);
+// list1.insertNode(25);
+// list1.insertNode(25);
 console.log('minngfffff',list1.minmaxValue());
 console.log('index of ', list1.indexOf1(10));
 console.log(list1.removeElement(25));
 console.log(list1.Print());
+function deleteElement(head,index)
+{
+   
+    if(index <=0 , index>head.size)
+    {
+          return ' invald index'
+    }
+    let cur = head.head ;
+    let prev = cur ;
+    let count = 1;
+    if(index == 1)
+    {
+         head = cur.next
+    }
+    else {
+        while(count<index){
+            count++;
+            prev =cur;
+            cur=cur.next;
+        }
+        cur=cur.next;
+        prev.next = cur;
+    }
+    return head;
+}
+console.log('delete element ',deleteElement(list1,4));
 // list1.insertNode(1);
 // list1.insertNode(1);
 // list1.insertNode(2);
